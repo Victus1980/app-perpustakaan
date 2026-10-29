@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
 use App\Models\LoanItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,7 @@ class LoanItemFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'book_id' => Book::factory(),
         ];
     }
 }

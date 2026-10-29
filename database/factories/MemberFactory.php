@@ -18,7 +18,12 @@ class MemberFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama' => fake()->name(),
+            'nim' => fake()->unique()->numerify('################'),
+            'email' => fake()->unique()->safeEmail(),
+            'nomor_telepon' => fake()->phoneNumber(),
+            'alamat' => fake()->address(),
+            'status' => fake()->randomElement(['aktif', 'nonaktif']),
         ];
     }
 }

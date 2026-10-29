@@ -19,7 +19,17 @@
         table { border-collapse: collapse; width: 100%; margin-top: 16px; }
         th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
         .alert-success { background: #d1fae5; color: #065f46; padding: 10px 14px; border-radius: 4px; margin-bottom: 16px; }
-        .btn { display: inline-block; padding: 6px 14px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
+        .stats-grid { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .stat-card { flex: 1; min-width: 160px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; text-align: center; }
+        .stat-card .value { font-size: 32px; font-weight: bold; color: #1e3a8a; }
+            .stat-card .label { margin-top: 6px; color: #6b7280; font-size: 14px; }
+            /* Pagination style */
+            .pagination { display: flex; gap: 6px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+            .pagination a, .pagination span { padding: 6px 12px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 4px; text-decoration: none; color: #1e3a8a; font-size: 14px; }
+            .pagination a:hover { background: #e5e7eb; }
+            .pagination .active span { background: #2563eb; color: #fff; border-color: #2563eb; }
+            .pagination .disabled span { color: #9ca3af; pointer-events: none; }
+            .btn { display: inline-block; padding: 6px 14px; background: #2563eb; color: #fff; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
         form.inline { display: inline; }
         footer { text-align: center; padding: 20px; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb; margin-top: 40px; }
     </style>

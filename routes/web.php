@@ -8,12 +8,10 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\DashboardController;
 
-Route::get('/home', function () {
-    return view('home');
+Route::get('/', function () {
+    return redirect('/login');
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -23,6 +21,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profil/password', [ProfileController::class, 'updatePassword'])
         ->name('profile.password.update');
@@ -34,6 +33,8 @@ Route::resource('members', MemberController::class);
 Route::resource('loans', LoanController::class);
 Route::put('/loans/{id}/kembalikan', [LoanController::class, 'kembalikan'])
     ->name('loans.kembalikan');
+Route::get('/loans/report', [LoanController::class, 'report'])
+    ->name('loans.report');
 Route::middleware(['admin'])->group(function () {
     Route::resource('categories', CategoryController::class)->except(['show']);
 });

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\Member;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class LoanController extends Controller
 {
@@ -103,5 +105,28 @@ class LoanController extends Controller
 
         return redirect()->route('loans.index')
             ->with('success', 'Transaksi peminjaman berhasil dihapus.');
+    }
+
+    /**
+     * Laporan peminjaman (Pertemuan 10): konsumsi GET /api/loans via Http Client.
+     */
+    public function report()
+    {
+        $loans = collect();
+        $apiError = null;
+
+        try {
+            $response = Http::get(config('services.internal_api.base_url').'/api/loans');
+
+            if ($response->successful()) {
+                $loans = collect($response->json('data', $response->json()));
+            } else {
+                $apiError = 'API mengembalikan status '.$response->status().'.';
+            }
+        } catch (ConnectionException $e) {
+            $apiError = 'Server API internal (port 8011) tidak aktif. Jalankan: php artisan serve --port=8011';
+        }
+
+        return view('loans.report', compact('loans', 'apiError'));
     }
 }
